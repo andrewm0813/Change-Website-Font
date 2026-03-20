@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Font Customizer Pro</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container" id="app">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-badge">Aa</div>
+        <span class="logo-text">Font Customizer Pro</span>
+      </div>
+      <div class="theme-controls" role="group" aria-label="Theme">
+        <button class="theme-btn" data-theme="light" title="Light mode" aria-label="Light mode">☀️</button>
+        <button class="theme-btn" data-theme="dark"  title="Dark mode"  aria-label="Dark mode">🌙</button>
+        <button class="theme-btn" data-theme="system" title="Match system" aria-label="Match system theme">💻</button>
+      </div>
+    </header>
+
+    <!-- Domain bar -->
+    <div class="domain-bar">
+      <span class="domain-name">
+        <span class="domain-dot"></span>
+        <span id="current-domain">Loading…</span>
+      </span>
+      <span class="domain-badge" id="active-badge" style="display:none">Active</span>
+    </div>
+
+    <!-- Search -->
+    <div class="search-wrap">
+      <div class="search-inner">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          id="font-search"
+          placeholder="Search fonts…"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Search fonts"
+        >
+        <button class="search-clear" id="search-clear" title="Clear search" aria-label="Clear search">×</button>
+      </div>
+    </div>
+
+    <!-- Font list -->
+    <div class="font-list-container" id="font-list-container" role="list">
+
+      <!-- Favorites -->
+      <div class="list-section" id="favorites-section">
+        <button class="section-toggle" id="favorites-toggle" aria-expanded="true">
+          <span class="section-caret">▾</span>
+          <span>Favorites</span>
+          <span class="section-badge" id="favorites-badge">0</span>
+        </button>
+        <div class="section-content" id="favorites-list" role="list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- All Fonts -->
+      <div class="list-section" id="all-fonts-section">
+        <div class="section-label">All Fonts</div>
+        <div id="all-fonts-list" role="list">
+          <!-- Populated by JS -->
+        </div>
+        <div class="empty-msg" id="no-results" style="display:none">No fonts match your search.</div>
+      </div>
+
+    </div>
+
+    <!-- Selected font hint -->
+    <div class="selected-font-hint" id="selected-hint">
+      Selected: <span id="selected-font-name">—</span> &mdash; choose a target and click <strong>+ Add Rule</strong>
+    </div>
+
+    <!-- Rules -->
+    <div class="rules-section">
+      <div class="rules-header">
+        <span class="rules-title">Font Rules</span>
+      </div>
+
+      <div class="rules-list" id="rules-list">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="add-rule-row">
+        <select id="rule-target" aria-label="Font target">
+          <option value="*">All Text</option>
+          <option value="body, p, span, div, li, td, th, label, blockquote">Body Text</option>
+          <option value="h1, h2, h3, h4, h5, h6">Headings</option>
+          <option value="nav, header, nav a, .nav, .navbar, .menu">Navigation</option>
+          <option value="button, .btn, input[type=&quot;button&quot;], input[type=&quot;submit&quot;], [role=&quot;button&quot;]">Buttons</option>
+          <option value="a">Links</option>
+          <option value="code, pre, kbd, samp">Code</option>
+          <option value="custom">Custom selector…</option>
+        </select>
+        <input
+          type="text"
+          class="custom-selector-input"
+          id="custom-selector"
+          placeholder="CSS selector, e.g. .article p"
+          aria-label="Custom CSS selector"
+        >
+        <button class="add-rule-btn" id="add-rule-btn" disabled title="Select a font first">+ Add Rule</button>
+      </div>
+    </div>
+
+    <!-- Options -->
+    <div class="options-section">
+      <div class="option-row">
+        <label class="option-label" for="force-dark">
+          <span class="option-icon">🌑</span>
+          Force Dark Mode
+        </label>
+        <label class="toggle-wrap">
+          <input type="checkbox" id="force-dark" aria-label="Force dark mode">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn btn-preview" id="preview-btn" title="Preview changes on the page without saving">Preview</button>
+      <button class="btn btn-apply"   id="apply-btn"   title="Save and apply changes permanently">Apply &amp; Save</button>
+      <button class="btn btn-reset"   id="reset-btn"   title="Remove all custom fonts and dark mode for this site">Reset</button>
+    </div>
+
+  </div><!-- /.container -->
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
