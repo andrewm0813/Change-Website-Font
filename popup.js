@@ -370,8 +370,8 @@ async function resetToDefault() {
 async function loadState() {
   return new Promise(resolve => {
     api.storage.local.get(['theme', 'favorites', 'favoritesOpen', 'sites'], result => {
-      // Defaults — theme defaults to 'dark'
-      state.theme        = result.theme        ?? 'dark';
+      // Defaults — theme defaults to 'system' so it follows OS preference
+      state.theme        = result.theme        ?? 'system';
       state.favorites    = result.favorites    ?? [];
       state.favoritesOpen = result.favoritesOpen !== false; // default open
       state.sites        = result.sites        ?? {};
