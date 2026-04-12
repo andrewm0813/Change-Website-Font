@@ -98,6 +98,15 @@ function googleFontsUrl(fontName) {
   return `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontName)}:wght@400;700&display=swap`;
 }
 
+function isValidCssSelector(selector) {
+  try {
+    document.createDocumentFragment().querySelector(selector);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
 function loadFontInPopup(fontName) {
   if (loadedFonts.has(fontName)) return;
   loadedFonts.add(fontName);
@@ -279,6 +288,11 @@ function addRule() {
   const selector = targetVal === 'custom'
     ? (customSelector.value.trim() || 'body')
     : targetVal;
+
+  if (!isValidCssSelector(selector)) {
+    showToast('Invalid CSS selector. Please check and try again.');
+    return;
+  }
 
   const rules = siteData().rules;
   const existing = rules.findIndex(r => r.selector === selector);
