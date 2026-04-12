@@ -5,6 +5,15 @@
   const DARK_STYLE_ID = 'fcp-dark-mode';
   const FONT_LINK_PREFIX = 'fcp-font-';
 
+  function isValidCssSelector(selector) {
+    try {
+      document.createDocumentFragment().querySelector(selector);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
   // ─── Apply font rules to the page ────────────────────────────────────────
   function applyFontRules(rules) {
     removeFontStyles();
@@ -14,8 +23,9 @@
     for (const rule of rules) {
       if (!rule.font || !rule.selector) continue;
       loadGoogleFont(rule.font);
-      const safeSelector = rule.selector === 'custom' ? rule.customSelector || 'body' : rule.selector;
-      css += `${safeSelector} { font-family: '${rule.font}', sans-serif !important; }\n`;
+      const selector = rule.selector === 'custom' ? (rule.customSelector || 'body') : rule.selector;
+      if (!isValidCssSelector(selector)) continue;
+      css += `${selector} { font-family: '${rule.font}', sans-serif !important; }\n`;
     }
 
     const style = document.createElement('style');
